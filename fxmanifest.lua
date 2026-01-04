@@ -1,18 +1,18 @@
 fx_version "adamant"
 game "gta5"
 author 'Murai Dev'
-description 'Extras and Liveries - Script client-side para FiveM que oferece funcionalidades de personalização para veículos.'
-version '1.0'
-url 'https://fivemdev.org/profile/11-murai/'
+description 'Extras and Liveries - Script standalone para FiveM que oferece funcionalidades de personalização para veículos.'
+version '2.0'
+url 'https://github.com/mur4i/mri_extras'
 discord '.mur4i'
 
 client_scripts {
--- "@vrp/lib/utils.lua", -- Descomente se necessário
-"client.lua"
+	"config.lua",
+	"client.lua"
 }
 
 files {
-"nui/**",
+	"web/**",
 }
 
-ui_page "nui/index.html"
+ui_page "web/index.html"
