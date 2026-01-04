@@ -26,8 +26,8 @@ RegisterCommand(Config.Commands.Extras, function(source, args, rawCommand)
     OpenExtrasMenu()
 end)
 
-RegisterNetEvent("mri:extras")
-AddEventHandler("mri:extras", function()
+RegisterNetEvent("mri_extras:extras")
+AddEventHandler("mri_extras:extras", function()
     TriggerEvent("dynamic:closeSystem")
     OpenExtrasMenu()
 end)
@@ -42,7 +42,6 @@ RegisterNUICallback("selectExtras", function(data, cb)
     local vehicle = GetVehiclePedIsIn(ped)
     local extraIndex = tonumber(data.extras)
     
-    -- Verificar se é o motorista
     if Config.OnlyDriver and GetPedInVehicleSeat(vehicle, -1) ~= ped then
         return
     end
@@ -50,7 +49,6 @@ RegisterNUICallback("selectExtras", function(data, cb)
     local isEnabled = IsVehicleExtraTurnedOn(vehicle, extraIndex)
     SetVehicleExtra(vehicle, extraIndex, isEnabled and 1 or 0)
     
-    -- Enviar notificação baseada no estado
     local notification = isEnabled and Config.Notifications.Extras.Disabled or Config.Notifications.Extras.Enabled
     TriggerEvent("Notify", notification.Type, string.format(notification.Message, extraIndex), Config.NotificationDuration)
 end)
@@ -62,8 +60,8 @@ RegisterCommand(Config.Commands.Plotagem, function(source, args, rawCommand)
     OpenPlotagemMenu()
 end)
 
-RegisterNetEvent("mri:plotagem")
-AddEventHandler("mri:plotagem", function()
+RegisterNetEvent("mri_extras:plotagem")
+AddEventHandler("mri_extras:plotagem", function()
     TriggerEvent("dynamic:closeSystem")
     OpenPlotagemMenu()
 end)
@@ -76,18 +74,17 @@ RegisterNUICallback("selectLivery", function(data, cb)
     end
     
     local vehicle = GetVehiclePedIsIn(ped)
-    local liveryIndex = tonumber(data.livery)
+    local liveryNumber = tonumber(data.livery)
+    local liveryIndex = liveryNumber - 1
     
-    -- Verificar se é o motorista
     if Config.OnlyDriver and GetPedInVehicleSeat(vehicle, -1) ~= ped then
         return
     end
     
     SetVehicleLivery(vehicle, liveryIndex)
     
-    -- Enviar notificação
     local notification = Config.Notifications.Plotagem.Applied
-    TriggerEvent("Notify", notification.Type, string.format(notification.Message, liveryIndex), Config.NotificationDuration)
+    TriggerEvent("Notify", notification.Type, string.format(notification.Message, liveryNumber), Config.NotificationDuration)
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -101,7 +98,6 @@ end)
 -- FUNÇÕES AUXILIARES
 -----------------------------------------------------------------------------------------------------------------------------------------
 
--- Conta quantos extras existem no veículo
 function GetVehicleExtrasCount(vehicle)
     local count = 1
     while DoesExtraExist(vehicle, count) do
@@ -110,7 +106,6 @@ function GetVehicleExtrasCount(vehicle)
     return count - 1
 end
 
--- Abre o menu de seleção de extras
 function OpenExtrasMenu()
     local ped = PlayerPedId()
     
@@ -120,7 +115,6 @@ function OpenExtrasMenu()
     
     local vehicle = GetVehiclePedIsIn(ped)
     
-    -- Verificar se é o motorista
     if Config.OnlyDriver and GetPedInVehicleSeat(vehicle, -1) ~= ped then
         return
     end
@@ -128,16 +122,22 @@ function OpenExtrasMenu()
     local extrasCount = GetVehicleExtrasCount(vehicle)
     
     if extrasCount > 0 then
+        local extrasStatus = {}
+        for i = 1, extrasCount do
+            local isTurnedOn = IsVehicleExtraTurnedOn(vehicle, i)
+            extrasStatus[i] = (isTurnedOn == 1)
+        end
+        
         SendNUIMessage({ 
             action = "openExtras", 
             count = extrasCount,
-            ui = Config.UI.Extras
+            ui = Config.UI.Extras,
+            activeExtras = extrasStatus
         })
         SetNuiFocus(true, true)
     end
 end
 
--- Abre o menu de seleção de plotagem
 function OpenPlotagemMenu()
     local ped = PlayerPedId()
     
@@ -147,7 +147,6 @@ function OpenPlotagemMenu()
     
     local vehicle = GetVehiclePedIsIn(ped)
     
-    -- Verificar se é o motorista
     if Config.OnlyDriver and GetPedInVehicleSeat(vehicle, -1) ~= ped then
         return
     end
@@ -155,10 +154,13 @@ function OpenPlotagemMenu()
     local liveriesCount = GetVehicleLiveryCount(vehicle)
     
     if liveriesCount > 0 then
+        local activeLivery = GetVehicleLivery(vehicle)
+        
         SendNUIMessage({ 
             action = "openLivery", 
             count = liveriesCount,
-            ui = Config.UI.Plotagem
+            ui = Config.UI.Plotagem,
+            activeLivery = activeLivery
         })
         SetNuiFocus(true, true)
     end

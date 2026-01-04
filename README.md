@@ -135,10 +135,10 @@ Você pode integrar este script com outros recursos:
 
 ```lua
 -- Abrir menu de extras
-TriggerEvent("mri:extras")
+TriggerEvent("mri_extras:extras")
 
 -- Abrir menu de plotagem
-TriggerEvent("mri:plotagem")
+TriggerEvent("mri_extras:plotagem")
 ```
 
 ---
@@ -214,7 +214,7 @@ QBCore.Functions.Notify(notification.Message, notification.Type)
 
 ## 🛠️ Suporte
 
-- **Comunidade:** [FiveMDEV](https://fivemdev.org/)
+- **Comunidade:** [MRI QBOX](https://discord.gg/uEfGD4mmVh)
 - **Autor:** Murai Dev
 - **Discord:** `.mur4i`
 - **Versão:** 2.0

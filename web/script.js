@@ -1,95 +1,89 @@
-// ============================================================================
-// LISTENER DE MENSAGENS DO CLIENTE LUA
-// ============================================================================
 window.addEventListener('message', function (event) {
     const data = event.data;
 
     switch (data.action) {
         case "openExtras":
-            openExtrasMenu(data.count, data.ui);
+            openExtrasMenu(data.count, data.ui, data.activeExtras);
             break;
         case "openLivery":
-            openLiveryMenu(data.count, data.ui);
+            openLiveryMenu(data.count, data.ui, data.activeLivery);
             break;
         default:
             break;
     }
 });
 
-// ============================================================================
-// FUNÇÕES PARA ABRIR MENUS
-// ============================================================================
-
-// Abre o menu de extras
-function openExtrasMenu(count, uiTexts) {
+function openExtrasMenu(count, uiTexts, activeExtras) {
     $(".safe-extras-cnt").fadeIn();
 
-    // Atualizar textos da UI se fornecidos
     if (uiTexts) {
         $(".safe-extras-cnt .tlt .sub").text(uiTexts.Subtitle);
         $(".safe-extras-cnt .tlt .dstq").text(uiTexts.Title);
     }
 
-    // Criar botões de extras dinamicamente
     for (let index = 0; index < count; index++) {
+        const extraNumber = index + 1;
+        const isActive = activeExtras && activeExtras[index];
+        const activeClass = isActive ? ' active' : '';
+
         $(".extras-cnt").append(`
-            <div data-number="${index + 1}" class="single-extras" onclick="selectExtras(this)">
-                ${index + 1}
+            <div data-number="${extraNumber}" class="single-extras${activeClass}" onclick="selectExtras(this)">
+                ${extraNumber}
             </div>
         `);
     }
     attHoverExtras();
 }
 
-// Abre o menu de plotagem
-function openLiveryMenu(count, uiTexts) {
+function openLiveryMenu(count, uiTexts, activeLivery) {
     $(".safe-livery-cnt").fadeIn();
 
-    // Atualizar textos da UI se fornecidos
     if (uiTexts) {
         $(".safe-livery-cnt .tlt .sub").text(uiTexts.Subtitle);
         $(".safe-livery-cnt .tlt .dstq").text(uiTexts.Title);
     }
 
-    // Criar botões de plotagem dinamicamente
     for (let index = 0; index < count; index++) {
+        const liveryNumber = index + 1;
+        const isActive = (activeLivery !== null && activeLivery !== undefined) && (activeLivery === index);
+        const activeClass = isActive ? ' active' : '';
+
         $(".livery-cnt").append(`
-            <div data-number="${index + 1}" class="single-livery" onclick="selectLivery(this)">
-                ${index + 1}
+            <div data-number="${liveryNumber}" class="single-livery${activeClass}" onclick="selectLivery(this)">
+                ${liveryNumber}
             </div>
         `);
     }
     attHoverLivery();
 }
 
-// ============================================================================
-// CALLBACKS PARA SELEÇÃO
-// ============================================================================
-
-// Envia callback para selecionar extra
 function selectExtras(element) {
+    const $element = $(element);
+
+    $element.toggleClass('active');
+
     $.post("https://mri_extras/selectExtras", JSON.stringify({
-        extras: $(element).data("number")
+        extras: $element.data("number")
     }));
 }
 
-// Envia callback para selecionar plotagem
 function selectLivery(element) {
+    const $element = $(element);
+
+    $('.single-livery').removeClass('active');
+    $element.addClass('active');
+
     $.post("https://mri_extras/selectLivery", JSON.stringify({
-        livery: $(element).data("number")
+        livery: $element.data("number")
     }));
 }
 
-// ============================================================================
-// FECHAR INTERFACE COM ESC
-// ============================================================================
 document.addEventListener('keydown', (event) => {
     if (event.code === "Escape") {
         closeInterface();
     }
 }, false);
 
-// Função para fechar a interface
 function closeInterface() {
     $(".safe-extras-cnt").fadeOut();
     $(".extras-cnt").html("");
@@ -100,11 +94,6 @@ function closeInterface() {
     $.post("https://mri_extras/close");
 }
 
-// ============================================================================
-// EFEITOS DE HOVER
-// ============================================================================
-
-// Adiciona efeito hover aos botões de extras
 function attHoverExtras() {
     $(".single-extras").hover(
         function () {
@@ -124,7 +113,6 @@ function attHoverExtras() {
     );
 }
 
-// Adiciona efeito hover aos botões de plotagem
 function attHoverLivery() {
     $(".single-livery").hover(
         function () {
