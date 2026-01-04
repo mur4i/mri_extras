@@ -1,0 +1,23 @@
+{
+    "ui": {
+        "extras": {
+            "title": "EXTRAS",
+            "subtitle": "SELECT",
+            "select_text": "SELECT"
+        },
+        "livery": {
+            "title": "LIVERY",
+            "subtitle": "SELECT ONE",
+            "select_text": "SELECT"
+        }
+    },
+    "notifications": {
+        "extras": {
+            "enabled": "[ENABLED] Extra %s",
+            "disabled": "[DISABLED] Extra %s"
+        },
+        "livery": {
+            "applied": "[APPLIED] Livery %s"
+        }
+    }
+}

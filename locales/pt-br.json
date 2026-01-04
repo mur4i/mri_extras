@@ -1,0 +1,23 @@
+{
+    "ui": {
+        "extras": {
+            "title": "EXTRAS",
+            "subtitle": "SELECIONAR",
+            "select_text": "SELECIONAR"
+        },
+        "livery": {
+            "title": "PLOTAGEM",
+            "subtitle": "SELECIONE UMA",
+            "select_text": "SELECIONAR"
+        }
+    },
+    "notifications": {
+        "extras": {
+            "enabled": "[ATIVADO] Extra %s",
+            "disabled": "[DESATIVADO] Extra %s"
+        },
+        "livery": {
+            "applied": "[APLICADO] Plotagem %s"
+        }
+    }
+}

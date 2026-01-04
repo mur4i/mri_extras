@@ -85,11 +85,13 @@ document.addEventListener('keydown', (event) => {
 }, false);
 
 function closeInterface() {
-    $(".safe-extras-cnt").fadeOut();
-    $(".extras-cnt").html("");
+    $(".safe-extras-cnt").fadeOut(300, function () {
+        $(".extras-cnt").html("");
+    });
 
-    $(".safe-livery-cnt").fadeOut();
-    $(".livery-cnt").html("");
+    $(".safe-livery-cnt").fadeOut(300, function () {
+        $(".livery-cnt").html("");
+    });
 
     $.post("https://mri_extras/close");
 }

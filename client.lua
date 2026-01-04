@@ -10,7 +10,7 @@
 --
 --   *Por favor, não baixe versões vazadas! Elas podem possuir vários vírus e acabar infectando sua VPS ou o seu próprio PC.*
 --
---   Suporte 100% gratuito e Qualidade garantidade apenas e exclusivamente no Github: https://github.com/mur4i/mri_extras
+--   Exclusivamente no Github: https://github.com/mur4i/mri_extras
 --
 --====================\\ M
 -- Versão: 2.0      --|| U
@@ -49,8 +49,9 @@ RegisterNUICallback("selectExtras", function(data, cb)
     local isEnabled = IsVehicleExtraTurnedOn(vehicle, extraIndex)
     SetVehicleExtra(vehicle, extraIndex, isEnabled and 1 or 0)
     
-    local notification = isEnabled and Config.Notifications.Extras.Disabled or Config.Notifications.Extras.Enabled
-    TriggerEvent("Notify", notification.Type, string.format(notification.Message, extraIndex), Config.NotificationDuration)
+    local notifType = isEnabled and "error" or "success"
+    local message = isEnabled and locale("notifications.extras.disabled", extraIndex) or locale("notifications.extras.enabled", extraIndex)
+    Config.Notify(message, notifType, Config.NotificationDuration)
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -83,8 +84,7 @@ RegisterNUICallback("selectLivery", function(data, cb)
     
     SetVehicleLivery(vehicle, liveryIndex)
     
-    local notification = Config.Notifications.Plotagem.Applied
-    TriggerEvent("Notify", notification.Type, string.format(notification.Message, liveryNumber), Config.NotificationDuration)
+    Config.Notify(locale("notifications.livery.applied", liveryNumber), "success", Config.NotificationDuration)
 end)
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -131,7 +131,10 @@ function OpenExtrasMenu()
         SendNUIMessage({ 
             action = "openExtras", 
             count = extrasCount,
-            ui = Config.UI.Extras,
+            ui = {
+                Title = locale("ui.extras.title"),
+                Subtitle = locale("ui.extras.subtitle")
+            },
             activeExtras = extrasStatus
         })
         SetNuiFocus(true, true)
@@ -159,7 +162,10 @@ function OpenPlotagemMenu()
         SendNUIMessage({ 
             action = "openLivery", 
             count = liveriesCount,
-            ui = Config.UI.Plotagem,
+            ui = {
+                Title = locale("ui.livery.title"),
+                Subtitle = locale("ui.livery.subtitle")
+            },
             activeLivery = activeLivery
         })
         SetNuiFocus(true, true)

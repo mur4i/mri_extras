@@ -8,11 +8,13 @@ discord '.mur4i'
 
 client_scripts {
 	"config.lua",
+	"locales/locales.lua",
 	"client.lua"
 }
 
 files {
 	"web/**",
+	"locales/*.json"
 }
 
 ui_page "web/index.html"

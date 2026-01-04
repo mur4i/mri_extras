@@ -7,66 +7,57 @@
 
 Config = {}
 
+Config.Locale = GetConvar("ox:locale", "en") -- Use o locale do ox_lib ou force a localização que você quiser
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SISTEMA DE NOTIFICAÇÕES
+-----------------------------------------------------------------------------------------------------------------------------------------
+Config.NotifyType = "oxlib" -- Opções: "qbcore", "oxlib", "vrp", "custom"
+Config.NotificationDuration = 5000  -- Duração das notificações em milissegundos
+
+-- Função de notificação (pode ser customizada)
+-- Tipos aceitos: "success", "error", "info", "warning"
+Config.Notify = function(message, type, duration)
+    local notifyType = Config.NotifyType
+    
+    if notifyType == "qbcore" then
+        -- QBCore: success, error, primary, info
+        local qbType = type == "error" and "error" or type == "success" and "success" or type == "warning" and "primary" or "info"
+        QBCore.Functions.Notify(message, qbType, duration)
+        
+    elseif notifyType == "oxlib" then
+        -- ox_lib: já usa o padrão correto
+        TriggerEvent("ox_lib:notify", {
+            description = message,
+            type = type,
+            duration = duration,
+            position = "center-right"
+        })
+        
+    elseif notifyType == "vrp" then
+        -- vRP: usa cores em português (verde, vermelho, amarelo, azul)
+        local vrpType = type == "success" and "verde" or type == "error" and "vermelho" or type == "warning" and "amarelo" or "azul"
+        TriggerEvent("Notify", vrpType, message, duration)
+        
+    elseif notifyType == "custom" then
+        -- Customize aqui para seu próprio sistema
+        -- Exemplo: exports['seu_notify']:ShowNotification(message, type)
+        print(string.format("[mri_extras] [%s] %s", type:upper(), message))
+    end
+end
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- COMANDOS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Config.Commands = {
-    Extras = "extras",        -- Comando para abrir o menu de extras
-    Plotagem = "plotagem"     -- Comando para abrir o menu de plotagem
+    Extras = "extras",
+    Plotagem = "plotagem"
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TEXTOS DA INTERFACE
+-- CONFIGURAÇÕES GERAIS
 -----------------------------------------------------------------------------------------------------------------------------------------
-Config.UI = {
-    Extras = {
-        Title = "EXTRAS",
-        Subtitle = "SELECIONAR",
-        SelectText = "SELECIONAR"
-    },
-    Plotagem = {
-        Title = "PLOTAGEM",
-        Subtitle = "SELECIONA UMA",
-        SelectText = "SELECIONAR"
-    }
-}
-
------------------------------------------------------------------------------------------------------------------------------------------
--- NOTIFICAÇÕES
------------------------------------------------------------------------------------------------------------------------------------------
-Config.Notifications = {
-    Extras = {
-        Enabled = {
-            Type = "verde",
-            Message = "[ATIVADO] Extra %s"
-        },
-        Disabled = {
-            Type = "vermelho",
-            Message = "[DESATIVADO] Extra %s"
-        }
-    },
-    Plotagem = {
-        Applied = {
-            Type = "verde",
-            Message = "[APLICADO] Plotagem %s"
-        }
-    }
-}
-
------------------------------------------------------------------------------------------------------------------------------------------
--- CORES DO TEMA (para referência - usado no CSS)
------------------------------------------------------------------------------------------------------------------------------------------
-Config.Theme = {
-    Extras = {
-        Primary = "#640000",    -- Vermelho escuro
-        Hover = "#000000"       -- Preto
-    },
-    Plotagem = {
-        Primary = "#001B64",    -- Azul escuro
-        Secondary = "#070064",  -- Azul mais escuro
-        Hover = "#000000"       -- Preto
-    }
-}
+Config.OnlyDriver = true       -- Apenas o motorista pode usar os comandos
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PERMISSÕES (opcional - descomente se quiser usar)
@@ -78,9 +69,3 @@ Config.Permissions = {
     Extras = nil,      -- nil = todos podem usar | "admin" = apenas admin
     Plotagem = nil     -- nil = todos podem usar | "admin" = apenas admin
 }
-
------------------------------------------------------------------------------------------------------------------------------------------
--- CONFIGURAÇÕES GERAIS
------------------------------------------------------------------------------------------------------------------------------------------
-Config.OnlyDriver = true       -- Apenas o motorista pode usar os comandos
-Config.NotificationDuration = 5000  -- Duração das notificações em milissegundos
