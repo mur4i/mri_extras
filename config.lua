@@ -58,14 +58,3 @@ Config.Commands = {
 -- CONFIGURAÇÕES GERAIS
 -----------------------------------------------------------------------------------------------------------------------------------------
 Config.OnlyDriver = true       -- Apenas o motorista pode usar os comandos
-
------------------------------------------------------------------------------------------------------------------------------------------
--- PERMISSÕES (opcional - descomente se quiser usar)
------------------------------------------------------------------------------------------------------------------------------------------
-Config.UsePermissions = false  -- Ativar sistema de permissões
-
--- Exemplo de permissões (ajuste conforme seu framework)
-Config.Permissions = {
-    Extras = nil,      -- nil = todos podem usar | "admin" = apenas admin
-    Plotagem = nil     -- nil = todos podem usar | "admin" = apenas admin
-}
