@@ -90,7 +90,8 @@ function OpenExtrasMenu()
             count = extrasCount,
             ui = {
                 Title = locale("ui.extras.title"),
-                Subtitle = locale("ui.extras.subtitle")
+                Subtitle = locale("ui.extras.subtitle"),
+                Select = locale("ui.extras.select_text")
             },
             activeExtras = extrasStatus
         })
@@ -121,7 +122,8 @@ function OpenLiveriesMenu()
             count = liveriesCount,
             ui = {
                 Title = locale("ui.livery.title"),
-                Subtitle = locale("ui.livery.subtitle")
+                Subtitle = locale("ui.livery.subtitle"),
+                Select = locale("ui.livery.select_text")
             },
             activeLivery = activeLivery
         })

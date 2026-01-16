@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Locale = GetConvar("ox:locale", "en")
+Config.Locale = 'en' --GetConvar("ox:locale", "en")
 Config.NotifyType = "oxlib" -- "qbcore", "oxlib", "vrp", "custom"
 Config.NotificationDuration = 5000
 Config.Commands = {

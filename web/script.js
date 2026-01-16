@@ -32,7 +32,7 @@ function openExtrasMenu(count, uiTexts, activeExtras) {
             </div>
         `);
     }
-    attHoverExtras();
+    attHoverExtras(uiTexts.Select);
 }
 
 function openLiveryMenu(count, uiTexts, activeLivery) {
@@ -54,7 +54,7 @@ function openLiveryMenu(count, uiTexts, activeLivery) {
             </div>
         `);
     }
-    attHoverLivery();
+    attHoverLivery(uiTexts.Select);
 }
 
 function selectExtras(element) {
@@ -96,12 +96,12 @@ function closeInterface() {
     $.post("https://mri_extras/close");
 }
 
-function attHoverExtras() {
+function attHoverExtras(selectText) {
     $(".single-extras").hover(
         function () {
             if (!$(this).hasClass("selected-extras")) {
                 setTimeout(() => {
-                    $(this).text("SELECIONAR");
+                    $(this).text(selectText);
                 }, 300);
                 $(this).addClass("selected-extras");
             }
@@ -115,12 +115,12 @@ function attHoverExtras() {
     );
 }
 
-function attHoverLivery() {
+function attHoverLivery(selectText) {
     $(".single-livery").hover(
         function () {
             if (!$(this).hasClass("selected-livery")) {
                 setTimeout(() => {
-                    $(this).text("SELECIONAR");
+                    $(this).text(selectText);
                 }, 300);
                 $(this).addClass("selected-livery");
             }
