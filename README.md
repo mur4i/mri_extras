@@ -1,24 +1,24 @@
-# 🚗 mri_extras - Extras e Plotagem para Veículos
+# 🚗 mri_extras - Vehicle Extras and Liveries
 
 [![FiveM](https://img.shields.io/badge/FiveM-Ready-blue.svg)](https://fivem.net/)
-[![Versão](https://img.shields.io/badge/Versão-2.0-green.svg)](https://github.com)
-[![Standalone](https://img.shields.io/badge/Standalone-Sim-brightgreen.svg)](https://github.com)
-[![Frameworks](https://img.shields.io/badge/Suporte-QBCore%20|%20ox__lib%20|%20vRP-orange.svg)](https://github.com)
+[![Version](https://img.shields.io/badge/Version-2.0-green.svg)](https://github.com)
+[![Standalone](https://img.shields.io/badge/Standalone-Yes-brightgreen.svg)](https://github.com)
+[![Frameworks](https://img.shields.io/badge/Support-QBCore%20|%20ox__lib%20|%20vRP-orange.svg)](https://github.com)
 
-> Script standalone otimizado para personalização de veículos (extras e liveries) com interface moderna e responsiva.
+> Optimized standalone script for vehicle customization (extras and liveries) with modern and responsive interface.
 
 ---
 
-## 📋 Índice
+## 📋 Table of Contents
 
-- [Características](#-características)
+- [Features](#-features)
 - [Previews](#-previews)
-- [Instalação](#-instalação)
-- [Configuração](#-configuração)
-- [Localização](#-localização)
-- [Uso](#-uso)
-- [Estrutura de Arquivos](#-estrutura-de-arquivos)
-- [Suporte](#-suporte)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Localization](#-localization)
+- [Usage](#-usage)
+- [File Structure](#-file-structure)
+- [Support](#-support)
 
 ---
 
@@ -29,119 +29,119 @@
 
 ---
 
-## ✨ Características
+## ✨ Features
 
-- ✅ **Standalone & Flexível** - Funciona sem dependências, mas suporta **QBCore**, **ox_lib** e **vRP**.
-- ✅ **Interface Moderna** - Design Glassmorphism limpo, com animações suaves e atualização em tempo real.
-- ✅ **Feedback Visual** - Indicadores (bordas verdes e ícones ✓) mostram exatamente o que está ativo.
-- ✅ **Configuração Centralizada** - Tudo em `config.lua`.
-- ✅ **Sistema de Locales** - Traduções fáceis via arquivos JSON (`en`, `pt-br`, etc.).
-- ✅ **Notificações Adaptáveis** - Sistema inteligente que detecta seu framework (ox_lib, qbcore, etc.).
-- ✅ **Seguro** - Validação para permitir apenas motoristas (configurável).
+- ✅ **Standalone & Flexible** - Works without dependencies, but supports **QBCore**, **ox_lib** and **vRP**.
+- ✅ **Modern Interface** - Clean Glassmorphism design, with smooth animations and real-time updates.
+- ✅ **Visual Feedback** - Indicators (green borders and ✓ icons) show exactly what is active.
+- ✅ **Centralized Configuration** - Everything in `config.lua`.
+- ✅ **Locales System** - Easy translations via JSON files (`en`, `pt-br`, etc.).
+- ✅ **Adaptable Notifications** - Smart system that detects your framework (ox_lib, qbcore, etc.).
+- ✅ **Secure** - Validation to allow only drivers (configurable).
 
 ---
 
-## 📥 Instalação
+## 📥 Installation
 
-1. **Baixe o script** e coloque na pasta `resources` do seu servidor.
+1. **Download the script** and place it in the `resources` folder of your server.
 
-2. **Adicione ao `server.cfg`:**
+2. **Add to `server.cfg`:**
    ```cfg
    ensure mri_extras
    ```
 
-3. **Inicie o servidor** ou use `refresh` seguido de `start mri_extras`.
+3. **Start the server** or use `refresh` followed by `start mri_extras`.
 
 ---
 
-## ⚙️ Configuração
+## ⚙️ Configuration
 
-Edite o arquivo **`config.lua`**:
+Edit the **`config.lua`** file:
 
-### 1. Comandos
+### 1. Commands
 ```lua
 Config.Commands = {
-    Extras = "extras",        -- Comando /extras
-    Plotagem = "plotagem"     -- Comando /plotagem
+    Extras = "extras",        -- /extras command
+    Plotagem = "plotagem"     -- /plotagem command
 }
 ```
 
-### 2. Notificações e Framework
-Escolha o sistema de notificação compatível com seu servidor:
+### 2. Notifications and Framework
+Choose the notification system compatible with your server:
 
 ```lua
--- Opções: "qbcore", "oxlib", "vrp", "standalone", "custom"
+-- Options: "qbcore", "oxlib", "vrp", "standalone", "custom"
 Config.NotifyType = "oxlib"
 ```
 
-### 3. Idioma
-O script detecta o locale do ox_lib ou usa o padrão definido:
+### 3. Language
+The script detects the ox_lib locale or uses the default set:
 ```lua
 Config.Locale = GetConvar("ox:locale", "pt-br")
 ```
 
 ---
 
-## 🌍 Localização
+## 🌍 Localization
 
-O sistema de tradução fica na pasta `locales/`.
+The translation system is in the `locales/` folder.
 
-- **pt-br.json** (Português Brasileiro)
-- **en.json** (Inglês)
+- **pt-br.json** (Brazilian Portuguese)
+- **en.json** (English)
 
-Para criar um novo idioma, basta copiar um arquivo existente, renomear (ex: `es.json`) e alterar `Config.Locale` para `es`.
+To create a new language, simply copy an existing file, rename it (e.g., `es.json`) and change `Config.Locale` to `es`.
 
 ---
 
-## 🎮 Uso
+## 🎮 Usage
 
-### Comandos
-| Comando | Descrição |
+### Commands
+| Command | Description |
 |---------|-----------|
-| `/extras` | Menu de extras do veículo |
-| `/plotagem` | Menu de liveries (pinturas) |
+| `/extras` | Vehicle extras menu |
+| `/plotagem` | Liveries (paint jobs) menu |
 
-### Funcionamento
-1. Entre num veículo.
-2. Use o comando.
-3. Clique nos botões para ativar/desativar.
-   - **Verde com ✓**: Ativo
-   - **Cinza**: Inativo
-4. Pressione **ESC** para fechar.
+### How it Works
+1. Enter a vehicle.
+2. Use the command.
+3. Click the buttons to toggle on/off.
+   - **Green with ✓**: Active
+   - **Gray**: Inactive
+4. Press **ESC** to close.
 
 ---
 
-## 📁 Estrutura de Arquivos
+## 📁 File Structure
 
 ```
 mri_extras/
-├── web/                   # Interface NUI (HTML/CSS/JS)
-├── locales/               # Arquivos de tradução (JSON)
-├── client.lua             # Lógica cliente
-├── config.lua             # Configuração geral
-└── fxmanifest.lua         # Manifesto
+├── web/                   # NUI Interface (HTML/CSS/JS)
+├── locales/               # Translation files (JSON)
+├── client.lua             # Client logic
+├── config.lua             # General configuration
+└── fxmanifest.lua         # Manifest
 ```
 
 ---
 
-## 🛠️ Suporte
+## 🛠️ Support
 
-- **Comunidade:** [MRI QBOX](https://discord.gg/uEfGD4mmVh)
-- **Autor:** Murai Dev
+- **Community:** [MRI QBOX](https://discord.gg/uEfGD4mmVh)
+- **Author:** Murai Dev
 - **Discord:** `.mur4i`
-- **Versão:** 2.0
+- **Version:** 2.0
 
 ---
 
 ## 📝 Changelog
 
-### v2.0 (Refatoração Completa)
-- ✨ **Interface**: Novo design moderno, indicadores visuais ativos, feedback em tempo real.
-- ✨ **Locales**: Sistema de tradução JSON implementado.
-- ✨ **Notificações**: Suporte nativo para QBCore, ox_lib e vRP.
-- ✨ **Código**: Refatoração completa, otimização e limpeza de debugs.
-- ✨ **Estrutura**: Organização em pastas `web` e `locales`.
+### v2.0 (Complete Refactor)
+- ✨ **Interface**: New modern design, active visual indicators, real-time feedback.
+- ✨ **Locales**: JSON translation system implemented.
+- ✨ **Notifications**: Native support for QBCore, ox_lib and vRP.
+- ✨ **Code**: Complete refactoring, optimization and debug cleanup.
+- ✨ **Structure**: Organization into `web` and `locales` folders.
 
 ---
 
-**Personalize seus veículos com estilo! 🚗💨**
+**Customize your vehicles with style! 🚗💨**

@@ -1,37 +1,13 @@
------------------------------------------------------------------------------------------------------------------------------------------
--- █▀▄▀█ █ █ █▀█ █ █ █      █▀▄ █▀▀ █ █ -------------------------------------------------------------------------------------------------
--- █ ▀ █ █▄█ █▀▄ ▀▀█ █      █▄▀ ██▄ ▀▄▀ -------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------
--- Nome do Script: Extras and Liveries (Extras e Plotagem)
--- Descrição: 
---   Este script standalone para FiveM oferece funcionalidades de personalização para veículos.
---   Explore uma variedade de extras e opções de plotagem (Liveries) para personalizar seu veículo da maneira que desejar.
---   Adicione um toque único aos seus carros e destaque-se na cidade!
---
---   *Por favor, não baixe versões vazadas! Elas podem possuir vários vírus e acabar infectando sua VPS ou o seu próprio PC.*
---
---   Exclusivamente no Github: https://github.com/mur4i/mri_extras
---
---====================\\ M
--- Versão: 2.0      --|| U
--- Autor: Murai Dev --|| R
--- Discord: .mur4i  --|| 4
---====================// I
------------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------------------------------
--- COMANDOS DE EXTRAS
------------------------------------------------------------------------------------------------------------------------------------------
+-- Commands
 RegisterCommand(Config.Commands.Extras, function(source, args, rawCommand)
     OpenExtrasMenu()
 end)
 
-RegisterNetEvent("mri_extras:extras")
-AddEventHandler("mri_extras:extras", function()
-    TriggerEvent("dynamic:closeSystem")
-    OpenExtrasMenu()
+RegisterCommand(Config.Commands.Liveries, function(source, args, rawCommand)
+    OpenLiveriesMenu()
 end)
 
+-- UI
 RegisterNUICallback("selectExtras", function(data, cb)
     local ped = PlayerPedId()
     
@@ -54,19 +30,6 @@ RegisterNUICallback("selectExtras", function(data, cb)
     Config.Notify(message, notifType, Config.NotificationDuration)
 end)
 
------------------------------------------------------------------------------------------------------------------------------------------
--- COMANDOS DE PLOTAGEM
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand(Config.Commands.Plotagem, function(source, args, rawCommand)
-    OpenPlotagemMenu()
-end)
-
-RegisterNetEvent("mri_extras:plotagem")
-AddEventHandler("mri_extras:plotagem", function()
-    TriggerEvent("dynamic:closeSystem")
-    OpenPlotagemMenu()
-end)
-
 RegisterNUICallback("selectLivery", function(data, cb)
     local ped = PlayerPedId()
     
@@ -87,17 +50,11 @@ RegisterNUICallback("selectLivery", function(data, cb)
     Config.Notify(locale("notifications.livery.applied", liveryNumber), "success", Config.NotificationDuration)
 end)
 
------------------------------------------------------------------------------------------------------------------------------------------
--- FECHAR INTERFACE
------------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("close", function(data, cb)
     SetNuiFocus(false, false)
 end)
 
------------------------------------------------------------------------------------------------------------------------------------------
--- FUNÇÕES AUXILIARES
------------------------------------------------------------------------------------------------------------------------------------------
-
+-- Functions
 function GetVehicleExtrasCount(vehicle)
     local count = 1
     while DoesExtraExist(vehicle, count) do
@@ -141,7 +98,7 @@ function OpenExtrasMenu()
     end
 end
 
-function OpenPlotagemMenu()
+function OpenLiveriesMenu()
     local ped = PlayerPedId()
     
     if not IsPedInAnyVehicle(ped) then
@@ -171,3 +128,12 @@ function OpenPlotagemMenu()
         SetNuiFocus(true, true)
     end
 end
+
+-- Events
+RegisterNetEvent("mri_extras:extras", function()
+    OpenExtrasMenu()
+end)
+
+RegisterNetEvent("mri_extras:plotagem", function()
+    OpenLiveriesMenu()
+end)
