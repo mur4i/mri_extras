@@ -12,12 +12,20 @@
 ## 📋 Índice
 
 - [Características](#-características)
+- [Previews](#-previews)
 - [Instalação](#-instalação)
 - [Configuração](#-configuração)
 - [Localização](#-localização)
 - [Uso](#-uso)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
 - [Suporte](#-suporte)
+
+---
+
+## 📸 Previews
+
+![Preview 1](preview1.png)
+![Preview 2](preview2.png)
 
 ---
 
