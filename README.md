@@ -62,7 +62,7 @@ Edit the **`config.lua`** file:
 ```lua
 Config.Commands = {
     Extras = "extras",        -- /extras command
-    Plotagem = "plotagem"     -- /plotagem command
+    Liveries = "liveries"     -- /liveries command
 }
 ```
 
@@ -99,7 +99,7 @@ To create a new language, simply copy an existing file, rename it (e.g., `es.jso
 | Command | Description |
 |---------|-----------|
 | `/extras` | Vehicle extras menu |
-| `/plotagem` | Liveries (paint jobs) menu |
+| `/liveries` | Liveries (paint jobs) menu |
 
 ### How it Works
 1. Enter a vehicle.
